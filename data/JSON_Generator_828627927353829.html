@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo Vault - Save & Display</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --blue-600: #2563eb;
+    --blue-700: #1d4ed8;
+    --blue-50: #eff6ff;
+    --gray-800: #1f2937;
+    --gray-100: #f3f4f6;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--blue-50);
+    color: var(--gray-800);
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+header {
+    background: linear-gradient(135deg, var(--blue-600) 0%, var(--blue-700) 100%);
+    color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+}
+
+header h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 800px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    color: var(--blue-600);
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #374151;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--blue-600);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.btn {
+    background: var(--blue-600);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: var(--blue-700);
+}
+
+.btn-secondary {
+    background: #6b7280;
+    margin-top: 10px;
+}
+
+.preview-box {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-100);
+}
+
+.preview-box img {
+    max-width: 100%;
+    max-height: 180px;
+}
+
+.meta-info {
+    background: var(--blue-50);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.meta-info strong {
+    color: var(--blue-700);
+}
+
+textarea#jsonOutput {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    background: #1f2937;
+    color: #10b981;
+}
+
+.alert {
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    display: none;
+    font-weight: 600;
+}
+
+.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🔒 Logo Vault</h1>
+        <p>তোমার লোগোর সব ডেটা সেভ করো, প্রমাণ রাখো, একমাত্র তোমার থাকবে</p>
+    </header>
+
+    <div class="grid">
+        <!-- Input Panel -->
+        <div class="card">
+            <h2>📝 লোগো ইনফো এন্ট্রি</h2>
+
+            <div class="form-group">
+                <label>লোগোর নাম</label>
+                <input type="text" id="logoName" placeholder="MyBrand Logo">
+            </div>
+
+            <div class="form-group">
+                <label>মালিকের নাম</label>
+                <input type="text" id="ownerName" placeholder="তোমার নাম">
+            </div>
+
+            <div class="form-group">
+                <label>বানোর তারিখ</label>
+                <input type="date" id="createDate">
+            </div>
+
+            <div class="form-group">
+                <label>লোগো ইমেজ URL / Base64</label>
+                <input type="text" id="logoUrl" placeholder="https://... বা data:image/png;base64,...">
+            </div>
+
+            <div class="form-group">
+                <label>কালার কোড</label>
+                <input type="text" id="colorCode" placeholder="#2563eb, #1d4ed8">
+            </div>
+
+            <div class="form-group">
+                <label>ফন্ট ইউজড</label>
+                <input type="text" id="fontUsed" placeholder="Kalpurush, Montserrat">
+            </div>
+
+            <div class="form-group">
+                <label>ডিজাইন নোট / কপিরাইট নোট</label>
+                <textarea id="notes" placeholder="© 2026 তোমার নাম। All rights reserved."></textarea>
+            </div>
+
+            <button class="btn" onclick="generateJSON()">💾 JSON জেনারেট করো</button>
+            <button class="btn btn-secondary" onclick="loadFromJSON()">📂 JSON লোড করো</button>
+            <button class="btn btn-secondary" onclick="downloadJSON()">⬇️ JSON ডাউনলোড</button>
+
+            <div class="alert alert-success" id="alert">সেভ হয়েছে!</div>
+        </div>
+
+        <!-- Preview Panel -->
+        <div class="card">
+            <h2>👁️ প্রিভিউ & JSON</h2>
+
+            <div class="preview-box" id="previewBox">
+                <span style="color:#9ca3af;">লোগো প্রিভিউ এখানে দেখাবে</span>
+            </div>
+
+            <div class="meta-info" id="metaInfo" style="display:none;">
+                <div><strong>নাম:</strong> <span id="mName"></span></div>
+                <div><strong>মালিক:</strong> <span id="mOwner"></span></div>
+                <div><strong>তারিখ:</strong> <span id="mDate"></span></div>
+                <div><strong>কপিরাইট:</strong> <span id="mNotes"></span></div>
+            </div>
+
+            <div class="form-group" style="margin-top:20px;">
+                <label>JSON ডেটা</label>
+                <textarea id="jsonOutput" readonly placeholder="এখানে JSON দেখাবে..."></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Set today's date default
+document.getElementById('createDate').valueAsDate = new Date();
+
+// Live Preview
+function updatePreview() {
+    const url = document.getElementById('logoUrl').value.trim();
+    const box = document.getElementById('previewBox');
+
+    if (url) {
+        box.innerHTML = `<img src="${url}" onerror="this.parentElement.innerHTML='<span style=color:#ef4444>ইমেজ লোড হয়নি</span>'">`;
+    } else {
+        box.innerHTML = '<span style="color:#9ca3af;">লোগো প্রিভিউ এখানে দেখাবে</span>';
+    }
+}
+
+document.getElementById('logoUrl').addEventListener('input', updatePreview);
+
+// Generate JSON
+function generateJSON() {
+    const data = {
+        logo: {
+            name: document.getElementById('logoName').value,
+            owner: document.getElementById('ownerName').value,
+            created_at: document.getElementById('createDate').value,
+            image_url: document.getElementById('logoUrl').value,
+            colors: document.getElementById('colorCode').value.split(',').map(s => s.trim()),
+            fonts: document.getElementById('fontUsed').value.split(',').map(s => s.trim()),
+            notes: document.getElementById('notes').value,
+            copyright: `© ${new Date().getFullYear()} ${document.getElementById('ownerName').value}. All rights reserved.`
+        },
+        metadata: {
+            generated_at: new Date().toISOString(),
+            version: "1.0"
+        }
+    };
+
+    const jsonStr = JSON.stringify(data, null, 2);
+    document.getElementById('jsonOutput').value = jsonStr;
+
+    // Update meta info
+    document.getElementById('mName').textContent = data.logo.name;
+    document.getElementById('mOwner').textContent = data.logo.owner;
+    document.getElementById('mDate').textContent = data.logo.created_at;
+    document.getElementById('mNotes').textContent = data.logo.copyright;
+    document.getElementById('metaInfo').style.display = 'block';
+
+    showAlert('JSON জেনারেট হয়েছে!');
+}
+
+// Load from JSON
+function loadFromJSON() {
+    try {
+        const jsonStr = document.getElementById('jsonOutput').value;
+        const data = JSON.parse(jsonStr);
+
+        const logo = data.logo;
+        document.getElementById('logoName').value = logo.name || '';
+        document.getElementById('ownerName').value = logo.owner || '';
+        document.getElementById('createDate').value = logo.created_at || '';
+        document.getElementById('logoUrl').value = logo.image_url || '';
+        document.getElementById('colorCode').value = logo.colors? logo.colors.join(', ') : '';
+        document.getElementById('fontUsed').value = logo.fonts? logo.fonts.join(', ') : '';
+        document.getElementById('notes').value = logo.notes || '';
+
+        updatePreview();
+        showAlert('JSON লোড হয়েছে!');
+    } catch (e) {
+        alert('ভুল JSON ফরম্যাট!');
+    }
+}
+
+// Download JSON
+function downloadJSON() {
+    const jsonStr = document.getElementById('jsonOutput').value;
+    if (!jsonStr) {
+        alert('আগে JSON জেনারেট করো!');
+        return;
+    }
+
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = (document.getElementById('logoName').value || 'logo') + '.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
+
+function showAlert(msg) {
+    const alert = document.getElementById('alert');
+    alert.textContent = msg;
+    alert.style.display = 'block';
+    setTimeout(() => alert.style.display = 'none', 3000);
+}
+</script>
+
+</body>
+</html>
