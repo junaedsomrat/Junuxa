@@ -1,0 +1,32 @@
+{
+  "logo": {
+    "name": "Junuxa Production Logo",
+    "owner": "Junaed Islam Somrat",
+    "created_at": "2026-05-13",
+    "image_url": "../Images/logo.png",
+    "colors": [
+      "#B2A0FF",
+      "#B082FF",
+      "#9C6AFF",
+      "#5600FF",
+      "#4700D4",
+      "#5F00FF",
+      "#7A00FF",
+      "#6C00E1",
+      "#6803AF",
+      "#F8EEFF",
+      "#F6F5FF",
+      "#E8D8FF"
+    ],
+    "fonts": [
+      "Ador Noirrit",
+      "Google Sans"
+    ],
+    "notes": "",
+    "copyright": "© 2026, Junuxa Production All rights reserved."
+  },
+  "metadata": {
+    "generated_at": "2026-05-14T02:04:31.355Z",
+    "version": "1.0"
+  }
+}
