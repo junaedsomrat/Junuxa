@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image to Base64 Converter</title>
+<link rel="stylesheet" href="/assets/css/image-to-base64-converter-20098643216895.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>📷 Image to Base64</h1>
+    <p class="subtitle">ছবি সিলেক্ট করো, অটো Base64 কনভার্ট হয়ে যাবে। ১০% অফলাইন</p>
+
+    <div class="upload-box" id="dropZone">
+        <div class="upload-icon">📁</div>
+        <div><strong>ক্লিক করো অথবা ছবি ড্র্যাগ করে ছাড়ো</strong></div>
+        <div style="font-size: 13px; color: #6b7280; margin-top: 5px;">JPG, PNG, WEBP, GIF সাপোর্ট করে</div>
+        <input type="file" id="fileInput" accept="image/*">
+    </div>
+
+    <div class="preview" id="preview">
+        <img id="previewImg" alt="Preview">
+        <div class="info" id="fileInfo"></div>
+
+        <label style="font-weight:600; margin-bottom:8px; display:block;">Base64 Output:</label>
+        <textarea id="base64Output" readonly></textarea>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="copyBase64()">📋 কপি করো</button>
+            <button class="btn btn-secondary" onclick="downloadTxt()">💾 TXT ডাউনলোড</button>
+            <button class="btn btn-secondary" onclick="resetAll()">🗑️ রিসেট</button>
+        </div>
+
+        <div class="alert alert-success" id="alert">কপি হয়েছে!</div>
+    </div>
+</div>
+
+<script src="/assets/js/image-to-base64-converter-8838720964100.js"></script>
+
+</body>
+</html>
