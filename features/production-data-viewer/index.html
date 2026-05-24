@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production Data Viewer</title>
+<link rel="stylesheet" href="/assets/css/production-data-viewer-81938476410083.css">
+</head>
+<body>
+<div class="container">
+<nav>
+<div class="logo"><img src="/Images/nav.png" alt="Junuxa" style="height: 35px;"></div>
+ <ul class="nav-links" id="navLinks">
+  <li><a href="/">Home</a></li>
+  <li><a href="/recent-news">Recent News</a></li>
+  <li><a href="/about">About us</a></li>
+    <li><a href="/contact">Contact</a></li>   <li><a href="/features">Features</a></li>
+
+ </ul>
+ <div class="menu-toggle" id="menuToggle">
+  <span></span>
+  <span></span>
+  <span></span>
+ </div>
+</nav>
+</div>
+
+<div class="wrap">
+ <h1>Video Data Reader</h1>
+ <div class="search">
+  <input type="text" id="prodId" placeholder="Production ID...">
+  <button id="btn">Load</button>
+ </div>
+ <div class="loader" id="loader"></div>
+ <div class="error" id="error"></div>
+ <div class="card" id="card">
+  <img id="thumb" class="thumb" alt="Thumbnail">
+  <div class="row"><div class="label">Production ID</div><div class="value" id="out_id"></div></div>
+  <div class="row"><div class="label">Video Title</div><div class="value" id="out_title"></div></div>
+  <div class="row"><div class="label">Creation Date</div><div class="value" id="out_date"></div></div>
+  <div class="row"><div class="label">Editor</div><div class="value" id="out_editor"></div></div>
+  <div class="row"><div class="label">Voice-over</div><div class="value" id="out_voice"></div></div>
+  <div class="row"><div class="label">Online Link</div><div class="value" id="out_online"></div></div>
+  <div class="row"><div class="label">Backup Link</div><div class="value" id="out_backup"></div></div>
+  <div class="row"><div class="label">Notes</div><div class="value" id="out_notes"></div></div>
+ </div>
+</div>
+
+<footer>
+ <p>© <span id="year"></span> Junuxa Production. All rights reserved.</p>
+</footer>
+<script src="/assets/js/production-data-viewer-89199373664730101.js"></script>
+</body>
+</html>
