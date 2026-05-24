@@ -8,10 +8,10 @@
   }
 
   let file, folder, element;
-  if(params.has('img')){ file = params.get('img'); folder = '/Images/'; element = 'img'; }
-  else if(params.has('audio')){ file = params.get('audio'); folder = '/Audio/'; element = 'audio'; }
-  else if(params.has('v')){ file = params.get('v'); folder = '/v/'; element = 'video'; }
-  else if(params.has('apk')){ file = params.get('apk'); folder = '/Apk/'; element = 'download'; }
+  if(params.has('img')){ file = params.get('img'); folder = 'https://junaedsomrat.github.io/Junuxa/Images/'; element = 'img'; }
+  else if(params.has('audio')){ file = params.get('audio'); folder = 'https://junaedsomrat.github.io/Junuxa/Audio/'; element = 'audio'; }
+  else if(params.has('v')){ file = params.get('v'); folder = 'https://junaedsomrat.github.io/Junuxa/v/'; element = 'video'; }
+  else if(params.has('apk')){ file = params.get('apk'); folder = 'https://junaedsomrat.github.io/Junuxa/Apk/'; element = 'download'; }
   else{ showError('No file specified', ''); return; }
 
   // Sanitize filename
