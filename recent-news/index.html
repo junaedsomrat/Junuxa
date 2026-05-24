@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recent News - Junuxa</title>
+<style>
+  :root{
+    --bg:#f8fafc; --bg2:#ffffff; --accent:#3b82f6; --accent-glow:#3b82f620;
+    --glass-border:rgba(59,130,246,0.15); --text:#1e293b; --text-dim:#64748b;
+  }
+  @font-face{font-family:'GoogleSans';src:url('/data/fonts/google-sans.ttf') format('truetype');font-display:swap;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"GoogleSans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;position:relative;display:flex;flex-direction:column;}
+  body::before,body::after{content:'';position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);filter:blur(100px);z-index:0;animation:float 20s ease-in-out infinite;}
+  body::before{top:-200px;left:-200px;}
+  body::after{bottom:-200px;right:-200px;animation-delay:-10s;}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(100px,100px) scale(1.1)}}
+  .container{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:1;width:100%;}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;animation:fadeDown 0.8s ease;position:relative;z-index:1000;}
+  .logo{font-size:26px;font-weight:800;background:linear-gradient(90deg,#3b82f6,#1d4ed8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .nav-links{display:flex;gap:40px;list-style:none;}
+  .nav-links a{color:var(--text-dim);text-decoration:none;font-size:15px;transition:all 0.3s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width 0.3s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-links a.active{color:var(--text);}
+  .nav-links a.active::after{width:100%;}
+  .wrap{width:90%;max-width:1200px;margin:80px auto;flex:1;position:relative;z-index:0;}
+  .badge{display:inline-block;padding:8px 16px;background:rgba(59,130,246,0.08);border:1px solid var(--glass-border);border-radius:50px;font-size:14px;color:var(--accent);margin-bottom:24px;backdrop-filter:blur(10px);}
+  h1{font-size:56px;font-weight:800;margin-bottom:16px;background:linear-gradient(180deg,#1e293b 0%,#475569 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .subtitle{font-size:16px;color:var(--text-dim);margin-bottom:50px;}
+  .news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}
+  .news-card{background:var(--bg2);border:1px solid var(--glass-border);border-radius:20px;overflow:hidden;cursor:pointer;transition:all 0.4s cubic-bezier(0.22, 1, 0.36, 1);backdrop-filter:blur(20px);animation:blurFadeUp 0.8s both;box-shadow:0 4px 20px rgba(0,0,0,0.06);text-decoration:none;display:block;}
+  .news-card:hover{transform:translateY(-8px);border-color:var(--accent);box-shadow:0 20px 40px rgba(59,130,246,0.15);}
+  .news-thumb{width:100%;height:200px;object-fit:cover;background:var(--bg2);}
+  .news-content{padding:24px;}
+  .news-title{font-size:20px;font-weight:700;margin-bottom:12px;line-height:1.4;color:var(--text);}
+  .news-meta{font-size:13px;color:var(--text-dim);margin-bottom:12px;}
+  .news-excerpt{font-size:14px;color:var(--text-dim);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  @keyframes blurFadeUp{from{opacity:0;filter:blur(16px);transform:translateY(30px);}to{opacity:1;filter:blur(0);transform:translateY(0);}}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+  footer{text-align:center;margin-top:60px;padding:40px 20px;border-top:1px solid var(--glass-border);color:var(--text-dim);font-size:14px;position:relative;z-index:1;}
+  .menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1002;}
+  .menu-toggle span{width:25px;height:2px;background:var(--text);transition:0.3s;}
+  .menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(7px,7px);}
+  .menu-toggle.active span:nth-child(2){opacity:0;}
+  .menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px);}
+  @media(max-width:720px){
+    .menu-toggle{display:flex;}
+    h1{font-size:38px;}
+    .wrap{margin:40px 16px;}
+    .nav-links{display:flex;position:absolute;top:calc(100% + 10px);left:0;width:100%;flex-direction:column;gap:0;background:var(--bg2);border:1px solid var(--glass-border);border-radius:12px;overflow:hidden;transform-origin:top right;transform:scale(0.85);opacity:0;filter:blur(8px);pointer-events:none;transition:transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.35s ease;z-index:1001;box-shadow:0 10px 30px rgba(0,0,0,0.1);}
+    .nav-links.active{transform:scale(1);opacity:1;filter:blur(0px);pointer-events:all;}
+    .nav-links li{width:100%;}
+    .nav-links a{display:block;padding:16px 20px;border-bottom:1px solid var(--glass-border);}
+    .nav-links a::after{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav>
+    <div class="logo"><img src="/Images/nav.png" alt="Junuxa" style="height:35px;"></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/recent-news" class="active"><b>Recent News</b></a></li>
+      <li><a href="/about">About us</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/features">Features</a></li>
+    </ul>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</div>
+
+<div class="wrap">
+  <div class="badge">Latest Updates</div>
+  <h1>Recent News</h1>
+  <p class="subtitle">Stay updated with the latest news and announcements</p>
+  
+  <div class="news-grid">
+    
+    <!-- News Card 1 - এখানে চেঞ্জ করো -->
+    <a href="we-are-hiring-content-researcher" class="news-card" style="animation-delay:0.1s">
+      <img src="/images/we-are-hiring-content-researcher.png" class="news-thumb" alt="News Title 1">
+      <div class="news-content">
+        <h3 class="news-title">We're Hiring Content Researcher</h3>
+        <div class="news-meta">Oct 20, 2026 • Admin</div>
+        <p class="news-excerpt">To create videos for our YouTube channels..</p>
+      </div>
+    </a>
+
+    <!-- News Card 2 -->
+    <a href="/news/news-2.html" class="news-card" style="animation-delay:0.2s">
+      <img src="/images/news2.jpg" class="news-thumb" alt="News Title 2">
+      <div class="news-content">
+        <h3 class="news-title">Update Version 2.0 Available</h3>
+        <div class="news-meta">Oct 18, 2026 • Team</div>
+        <p class="news-excerpt">Another news description goes here. Replace this text with your own content.</p>
+      </div>
+    </a>
+
+    <!-- News Card 3 -->
+    <a href="/news/news-3.html" class="news-card" style="animation-delay:0.3s">
+      <img src="/images/news3.jpg" class="news-thumb" alt="News Title 3">
+      <div class="news-content">
+        <h3 class="news-title">Community Event Announcement</h3>
+        <div class="news-meta">Oct 15, 2026 • Moderator</div>
+        <p class="news-excerpt">Add your event details or news summary here. This will show 3 lines max.</p>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<footer>
+  <p>© <span id="year"></span> Junuxa Production. All rights reserved.</p>
+</footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+const toggle=document.getElementById("menuToggle");
+const navLinks=document.getElementById("navLinks");
+toggle.addEventListener("click",()=>{toggle.classList.toggle("active");navLinks.classList.toggle("active");});
+</script>
+</body>
+</html>
