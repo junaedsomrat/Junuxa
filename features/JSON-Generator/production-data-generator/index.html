@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video JSON Maker</title>
+<link rel="stylesheet" href="/assets/css/production-data-generator-8877492981094859.css">
+</head>
+<body>
+<div class="container">
+  <h1>Video JSON Maker</h1>
+  
+  <label for="prodId">Production ID</label>
+  <input type="text" id="prodId" placeholder="Like: VID_001">
+
+  <label for="title">Video Title</label>
+  <input type="text" id="title" placeholder="Like: My First Video">
+
+  <label for="thumbnail">Thumbnail Link <span class="hint">(optional)</span></label>
+  <input type="url" id="thumbnail" placeholder="https://example.com/thumb.jpg">
+
+  <div class="row">
+    <div>
+      <label for="date">Creation Date</label>
+      <input type="date" id="date">
+    </div>
+    <div>
+      <label for="editor">Editor</label>
+      <input type="text" id="editor" placeholder="Editor name">
+    </div>
+  </div>
+
+  <label for="voice">Voice-over</label>
+  <input type="text" id="voice" placeholder="Voice-over artist name">
+
+  <label for="online">Online Link <span class="hint">(optional)</span></label>
+  <input type="url" id="online" placeholder="https://youtube.com/...">
+
+  <label for="backup">Backup Link <span class="hint">(optional)</span></label>
+  <input type="url" id="backup" placeholder="Google Drive / Dropbox link">
+
+  <label for="notes">Notes <span class="hint">(optional)</span></label>
+  <textarea id="notes" placeholder="Extra notes  "></textarea>
+
+  <div class="btns">
+    <button id="genBtn">Generate JSON txt</button>
+    <button id="copyBtn" class="secondary">Copy JSON codes</button>
+  </div>
+
+  <pre id="output" style="display:none;"></pre>
+</div>
+<script src="/assets/js/production-data-generator-199847919647292.js"></script>
+</body>
+</html>
