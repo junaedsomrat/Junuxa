@@ -1,6 +1,6 @@
 async function loadLogoData() {
     try {
-        const response = await fetch('json/logo_details.json');
+        const response = await fetch('https://junaedsomrat.github.io/Junuxa/data/json/logo_details.json');
         
         if (!response.ok) {
             throw new Error('Error loading details');
