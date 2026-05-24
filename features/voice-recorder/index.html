@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voice Recorder - Junuxa</title>
+<link rel="stylesheet" href="/assets/css/voice-recorder-992663639292.css">
+</head>
+<body>
+<div class="container">
+  <nav>
+<div class="logo"><img src="/Images/nav.png" alt="Junuxa" style="height:35px;"></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/recent-news">Recent News</a></li>
+      <li><a href="/about">About us</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/features">Features</a></li>
+    </ul>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</div>
+
+<div class="wrap">
+  <h1>Voice Recorder</h1>
+  <p class="sub">Clear voice recording with live waveform</p>
+  <div class="canvas-wrap"><canvas id="visualizer"></canvas></div>
+  <div class="timer" id="timer">00:00</div>
+  <div class="controls">
+    <button class="btn" id="recordBtn">Record</button>
+    <button class="btn" id="saveBtn" disabled>Save</button>
+  </div>
+  <div class="status" id="status">Try desktop mode for better response</div>
+</div>
+
+<div class="modal" id="saveModal">
+  <div class="modal-content">
+    <h3>Save Recording</h3>
+    <input type="text" id="filename" placeholder="recording_2026-10-05" value="">
+    <div class="modal-btns">
+      <button class="modal-btn" id="cancelSave">Cancel</button>
+      <button class="modal-btn primary" id="confirmSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<footer><p>© <span id="year"></span> Junuxa Production. All rights reserved.</p></footer>
+<script src="/assets/js/voice-recorder-99288282773.js"></script>
+</body>
+</html>
