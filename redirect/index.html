@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redirecting...</title>
+<style>
+  :root{ 
+    --bg:#f8fafc; 
+    --bg2:#ffffff; 
+    --accent:#3b82f6; 
+    --accent-glow:#3b82f620; 
+    --glass:rgba(59,130,246,0.06); 
+    --glass-border:rgba(59,130,246,0.15); 
+    --text:#1e293b; 
+    --text-dim:#64748b; 
+    --error:#ef4444;
+  }
+
+  @font-face { 
+    font-family: 'GoogleSans'; 
+    src: url('/data/fonts/google-sans.ttf') format('truetype'); 
+    font-display: swap; 
+  }
+
+  body{ 
+    margin:0; 
+    height:100vh; 
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    background:var(--bg); 
+    color:var(--text); 
+    font-family:"GoogleSans",Arial,sans-serif; 
+    text-align:center; 
+    position:relative;
+    overflow:hidden;
+  }
+
+  body::before{
+    content:'';
+    position:fixed;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);
+    filter:blur(100px);
+    z-index:0;
+    top:-200px;
+    right:-200px;
+  }
+
+  .box{ 
+    max-width:500px; 
+    padding:40px 30px; 
+    border:1px solid var(--glass-border); 
+    border-radius:20px; 
+    background:var(--bg2); 
+    backdrop-filter:blur(20px); 
+    box-shadow:0 10px 40px rgba(0,0,0,0.08), 0 0 30px var(--accent-glow); 
+    position:relative;
+    z-index:1;
+  }
+
+  .spinner{ 
+    width:40px; 
+    height:40px; 
+    border:3px solid rgba(59,130,246,0.2); 
+    border-top:3px solid var(--accent); 
+    border-radius:50%; 
+    animation:spin 1s linear infinite; 
+    margin:0 auto 20px; 
+  }
+
+  @keyframes spin{
+    to{transform:rotate(360deg)}
+  }
+
+  h2{
+    margin:0 0 12px;
+    font-size:22px;
+    color:var(--text);
+  }
+
+  p{
+    margin:0 0 16px;
+    color:var(--text-dim);
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  a{
+    color:var(--accent);
+    word-break:break-all;
+    text-decoration:none;
+  }
+
+  a:hover{
+    text-decoration:underline;
+  }
+
+  .error{
+    color:var(--error);
+  }
+
+  code{ 
+    background:#f1f5f9; 
+    padding:2px 6px; 
+    border-radius:4px; 
+    font-size:14px;
+    color:var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="spinner" id="spinner"></div>
+    <h2 id="title">Redirecting...</h2>
+    <p id="status">Please wait</p>
+  </div>
+
+<script>
+(function(){
+    // অ্যালাও করা ডোমেইন আর পাথ
+    const allowed = [
+        'google.com', 'youtube.com', 'github.com', 'youtu.be', 
+        'facebook.com', 'tiktok.com', 'mahfil.com', 'chatgpt.com', 
+        'junuxaproduction.pages.dev'
+    ];
+    
+    const allowedPaths = [
+        '/file', '/file/', '/file/index.html', '/file/?', 
+        '../file/', '/file/?v=a.mp4',
+        '/Images', '/v'
+        
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let url = params.get('link');
+    
+    const titleEl = document.getElementById('title');
+    const statusEl = document.getElementById('status');
+    const spinnerEl = document.getElementById('spinner');
+
+    if(!url){
+        showError('Bad redirection request');
+        return;
+    }
+
+    // http/https না থাকলে https যোগ করো
+    if(!/^https?:\/\//i.test(url) && !url.startsWith('/')){
+        url = 'https://' + url;
+    }
+
+    let targetUrl;
+    try{
+        // রিলেটিভ পাথ হলে বেস URL দিয়ে বানাও
+        targetUrl = new URL(url, window.location.origin);
+    }catch(e){
+        showError('Invalid URL', 'The link you provided is not valid');
+        return;
+    }
+
+    // ডোমেইন বা পাথ চেক করো
+    const domain = targetUrl.hostname;
+    const path = targetUrl.pathname + targetUrl.search;
+    
+    const isAllowedDomain = allowed.some(d => domain === d || domain.endsWith('.' + d));
+    const isAllowedPath = allowedPaths.some(p => path.startsWith(p));
+
+    if(!isAllowedDomain && !isAllowedPath){
+        showError('Domain/Path not allowed', 'This link is not in the allowed list');
+        return;
+    }
+
+    // সাকসেস হলে রিডাইরেক্ট করো
+    statusEl.innerHTML = 'Redirecting to:<br><a href="'+targetUrl.href+'">'+targetUrl.href+'</a>';
+    setTimeout(()=>{
+        window.location.replace(targetUrl.href);
+    },1500);
+
+    function showError(title, msg){
+        spinnerEl.style.display = 'none';
+        titleEl.textContent = title;
+        titleEl.className = 'error';
+        statusEl.innerHTML = msg;
+    }
+})();
+</script>
+</body>
+</html>
