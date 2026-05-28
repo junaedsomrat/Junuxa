@@ -36,8 +36,8 @@ async function loadData(id){
  $("thumb").style.display="none";
  $("prodId").value=id;
  try{
-  const res=await fetch("/data/json/production.json",{cache:"no-store"});
-  if(!res.ok)throw new Error("/data/production.json লোড হয়নি। ফাইল পাথ চেক করো।");
+  const res=await fetch("https://junaedsomrat.github.io/Junuxa/data/json/production.json",{cache:"no-store"});
+  if(!res.ok)throw new Error("Path not loaded");
   const data=await res.json();
   const item=Array.isArray(data)?data.find(v=>v.production_id===id):null;
   $("loader").style.display="none";
