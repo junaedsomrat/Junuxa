@@ -1,13 +1,13 @@
 [
   {
-    "production_id": "VID_01",
-    "video_title": "My First Video",
-    "thumbnail": "/Images/thumbnail.png",
+    "production_id": "Demo",
+    "video_title": "Demo Title",
+    "thumbnail": "https://junaedsomrat.github.io/Junuxa/Images/thumbnail.png",
     "creation_date": "2026-05-15",
-    "editor": "Japop",
-    "voice_over": "Japop, Michael",
-    "online_link": "m.youtube.com/watch?v=a9bZj99Aml",
-    "backup_link": "drive.google.com/88ngfg",
-    "notes": "This was uploaded on 2 channel"
+    "editor": "Junaed Islam Somrat",
+    "voice_over": "Junaed Islam Somrat",
+    "online_link": "https://junaedsomrat.github.io/redirect?link=https://m.youtube.com/@chayasutra",
+    "backup_link": "No link available",
+    "notes": "This is a demo data"
   }
 ]
